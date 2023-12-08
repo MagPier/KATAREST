@@ -1,6 +1,6 @@
 package ru.kata.spring.boot_security.demo.service;
 
-import org.springframework.context.annotation.Lazy;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,17 +20,16 @@ import java.util.Optional;
 @Service
 public class UserService implements UserDetailsService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
 
 
-    public UserService(@Lazy UserRepository userRepository, RoleRepository roleRepository) {
+    public UserService( UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
     }
 
-    @Transactional(readOnly = true)
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -62,6 +61,7 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
+    @Transactional
     public boolean deleteUser(Long userId) {
         if (userRepository.findById(userId).isPresent()) {
             userRepository.deleteById(userId);
@@ -74,7 +74,7 @@ public class UserService implements UserDetailsService {
     public void updateUser(User userinfo, long id) {
         User old = userRepository.getById(id);
         old.setUsername(userinfo.getUsername());
-        old.setPassword(userinfo.getPassword());
+        old.setPassword(new BCryptPasswordEncoder().encode(userinfo.getPassword()));
         old.setRoles(userinfo.getRoles());
         userRepository.save(old);
     }

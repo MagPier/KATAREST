@@ -24,7 +24,7 @@ public class User implements UserDetails {
     @Column
     private String password;
     @Column
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @Cascade(org.hibernate.annotations.CascadeType.PERSIST)
     @JoinTable(name = "users_roles"
             , joinColumns = @JoinColumn(name = "user_id")

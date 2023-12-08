@@ -13,7 +13,7 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 @RequestMapping("/register")
 public class RegistrationController {
 
-    private UserService userService;
+    private final UserService userService;
 
     public RegistrationController(
             UserService userService) {

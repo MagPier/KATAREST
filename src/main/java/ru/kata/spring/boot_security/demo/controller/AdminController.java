@@ -1,6 +1,5 @@
 package ru.kata.spring.boot_security.demo.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -15,8 +14,12 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/admin")
 public class AdminController {
-    @Autowired
-    private UserService userService;
+
+    private final UserService userService;
+
+    public AdminController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/list")
     public String userList(Model model) {
