@@ -103,7 +103,7 @@ public class User implements UserDetails {
     }
 
     public String rolesToString() {
-        return roles.stream().map(x -> x.getName()).collect(Collectors.joining(","));
+        return roles.stream().map(x -> x.getName()).collect(Collectors.joining(", "));
     }
 
     @Override
@@ -122,7 +122,7 @@ public class User implements UserDetails {
     @Override
     public String toString() {
         return "User" +
-                "id=" + id +
-                ", username='" + username;
+                "id - " + id +
+                ", username - " + username;
     }
 }
