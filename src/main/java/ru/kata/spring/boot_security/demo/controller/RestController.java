@@ -14,14 +14,14 @@ import java.security.Principal;
 import java.util.List;
 
 
-@RestController
+@org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api")
-public class AdminRestController {
+public class RestController {
 
     private final UserService userService;
 
     @Autowired
-    public AdminRestController( UserService userService) {
+    public RestController(UserService userService) {
         this.userService = userService;
     }
 

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/")
-public class UserController {
+public class MainController {
 
     @GetMapping(value = "login")
     public String loginPage() {
