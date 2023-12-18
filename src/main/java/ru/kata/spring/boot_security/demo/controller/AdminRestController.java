@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.models.User;
 
@@ -13,18 +14,19 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
-
 @org.springframework.web.bind.annotation.RestController
+
 @RequestMapping("/api")
-public class RestController {
+public class AdminRestController {
 
     private final UserService userService;
 
     @Autowired
-    public RestController(UserService userService) {
+    public AdminRestController(UserService userService) {
         this.userService = userService;
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping("/users")
     public ResponseEntity<List<User>> getUsers() {
         return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
